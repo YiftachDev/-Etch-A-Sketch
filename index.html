@@ -9,15 +9,26 @@
     <style>
         body {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100%;
             font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            font-size: 80px;
+            font-weight: bold;
         }
         .container {
+            display: flex;
+            align-items: center;
+        }
+        .container-grid {
             display: grid;
             gap: 4px;
             border: 2px solid black;
+            margin-right: 240px;
         }
         .btn {
             width: 200px;
@@ -41,13 +52,17 @@
     </style>
 </head>
 <body>
-    <div class="side-bar">
-        <button id="color-btn" class="btn">Change Color</button>
-        <br>
-        <button id="size-btn" class="btn">Change Size</button>
-        <br>
-        <button id="eraser-btn" class="btn">Eraser</button>
+    <h1>Etch-A-Sketch</h1>
+    <div class="container">
+        <div class="side-bar">
+            <button id="color-btn" class="btn">Change Color</button>
+            <br>
+            <button id="size-btn" class="btn">Change Size</button>
+            <br>
+            <button id="eraser-btn" class="btn">Eraser</button>
+        </div>
+        <div class="container-grid"></div>
     </div>
-    <div class="container"></div>
+
 </body>
 </html>
