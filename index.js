@@ -1,30 +1,40 @@
-let gridSize = 16;
+const defaultSize = 16;
+let currentSize = defaultSize;
 let color = "black";
 let eraserMode = false;
+let divs = [];
 const containerGrid = document.querySelector(".container-grid");
 const styles = window.getComputedStyle(containerGrid);
 const gridTemplateRows = styles.getPropertyValue('grid-template-rows');
 const gridTemplateColumns = styles.getPropertyValue('grid-template-columns');
 const colorBtn = document.querySelector("#color-btn");
 const eraserBtn = document.querySelector("#eraser-btn");
-const clearBtn = document.querySelector("#clear-btn")
+const clearBtn = document.querySelector("#clear-btn");
+const sizeBtn = document.querySelector("#size-btn");
 
 
-containerGrid.style.gridTemplateRows = `repeat(${gridSize}, 40px)`;
-containerGrid.style.gridTemplateColumns = `repeat(${gridSize}, 40px)`;
+updateSize(defaultSize);
+createGrid();
 
-let divs = [];
-for (let i = 0; i < gridSize ** 2; i++) {
-    const div = document.createElement('div');
-    containerGrid.appendChild(div);
-    divs.push(div);
-    div.addEventListener("mouseover", () => {
-        if (!eraserMode) {
-            div.style.backgroundColor = color;
-        } else {
-            div.style.backgroundColor = "white";
-        }
-    });
+function createGrid() {
+    for (let i = 0; i < currentSize ** 2; i++) {
+        const div = document.createElement('div');
+        div.classList.add("item");
+        containerGrid.appendChild(div);
+        divs.push(div);
+        div.addEventListener("mouseover", () => {
+            if (!eraserMode) {
+                div.style.backgroundColor = color;
+            } else {
+                div.style.backgroundColor = "white";
+            }
+        });
+    }
+}
+
+function updateSize(size) {
+    containerGrid.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+    containerGrid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
 }
 
 colorBtn.addEventListener("click", () => {
@@ -42,3 +52,10 @@ clearBtn.addEventListener("click", () => {
         div.style.backgroundColor = "white";
     }
 });
+
+sizeBtn.addEventListener("click", () => {
+    currentSize = prompt("Size:");
+    containerGrid.textContent = "";
+    updateSize(currentSize);
+    createGrid();
+})
