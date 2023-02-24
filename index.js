@@ -1,7 +1,8 @@
 const defaultSize = 16;
 let currentSize = defaultSize;
-let color = "black";
+let color = "rgb(59, 59, 59)";
 let eraserMode = false;
+let isDragging;
 let divs = [];
 const containerGrid = document.querySelector(".container-grid");
 const styles = window.getComputedStyle(containerGrid);
@@ -16,18 +17,33 @@ const sizeBtn = document.querySelector("#size-btn");
 updateSize(defaultSize);
 createGrid();
 
+
+function onMouseDown() {
+    isDragging = true;
+}
+
+function onMouseUp() {
+    isDragging = false;
+}
+
+
 function createGrid() {
     for (let i = 0; i < currentSize ** 2; i++) {
         const div = document.createElement('div');
         div.classList.add("item");
         containerGrid.appendChild(div);
         divs.push(div);
-        div.addEventListener("mouseover", () => {
-            if (!eraserMode) {
-                div.style.backgroundColor = color;
-            } else {
-                div.style.backgroundColor = "white";
+        div.addEventListener("mousedown", onMouseDown);
+        div.addEventListener("mouseup", onMouseUp);
+        div.addEventListener("mousemove", () => {
+            if (isDragging) {
+                if (!eraserMode) {
+                    div.style.backgroundColor = color;
+                } else {
+                    div.style.backgroundColor = "white";
+                }
             }
+
         });
     }
 }
