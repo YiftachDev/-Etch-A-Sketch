@@ -28,7 +28,8 @@ for (let i = 0; i < gridSize ** 2; i++) {
 }
 
 colorBtn.addEventListener("click", () => {
-    color = prompt("Color:");
+    let temp = prompt("Color:");
+    if (temp) color = temp;
     eraserMode = false;
 });
 
@@ -40,4 +41,4 @@ clearBtn.addEventListener("click", () => {
     for (const div of divs) {
         div.style.backgroundColor = "white";
     }
-})
+});
